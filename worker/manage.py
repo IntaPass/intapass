@@ -31,7 +31,7 @@ class Worker():
         ssh_file = "felix.pub"
         with open(ssh_file, "w+") as p:
             p.write(key)
-            
+
         tasks = [
             {
                 "name": "Make sure we have a 'team' group",
@@ -75,6 +75,6 @@ class Worker():
             p.write(json.dumps(playbook))
         host_file = self.generate_host_file(hosts)
         subprocess.call(["ansible-playbook", file_name, "-i", host_file])
-        # os.remove(file_name)
-        # os.remove(host_file)
+        os.remove(file_name)
+        os.remove(host_file)
 
