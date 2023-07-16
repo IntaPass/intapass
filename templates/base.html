@@ -9,16 +9,46 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div class="columns">
-        <div class="sidebar pl-5 py-6 is-full-height column is-one-fifth bg-100">
-          
+    <div class="w-full flex">
+        <div class="w-56 bg-base-200 h-100 fixed" style="height: 100vh;">
+          <ul class="menu w-56">
+            <li><a class="btn btn-ghost normal-case text-xl">IntaPass</a></li>
+            <li><a href="{% url 'access:index' %}">Access</a></li>
+            <li><a href="{% url 'access:index' %}">Groups</a></li>
+            <li><a href="{% url 'access:index' %}">Team</a></li>
+            <li><a href="{% url 'access:index' %}">Hosts</a></li>
+            <li><a href="{% url 'access:index' %}">Policies</a></li>
+            <li><a href="{% url 'access:index' %}">Audit Logs</a></li>
+            <li><a href="{% url 'access:index' %}">Settings</a></li>
+          </ul>
         </div>
-        <div class="column main-content">
-          <div class="columns">
-            <div class="column is-four-fifths is-offset-1 my-6">
-              {% block content %}
-              {% endblock %}
+        <div class="flex-1 ml-56">
+          <div>
+            <div class="navbar bg-base-100">
+              <div class="flex-1">
+                <a class="btn btn-ghost normal-case text-xl">Access</a>
+              </div>
+              <div class="flex-none">
+                <ul class="menu menu-horizontal px-1">
+                  <li><a>Billing</a></li>
+                  <li>
+                    <details>
+                      <summary>
+                        {{user}}
+                      </summary>
+                      <ul class="p-2 bg-base-100">
+                        <li><a>Profile</a></li>
+                        <li><a>Log out</a></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </div>
+          <div class="m-4">
+            {% block content %}
+            {% endblock %}
           </div>
         </div>
     </div>
