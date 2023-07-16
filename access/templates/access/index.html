@@ -1,6 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<button class="btn btn-neutral btn-sm">Button x</button>
->> {{entries}}
+<div class="mb-4 text-right">
+    <a href="{% url 'access:create' %}" class="btn btn-neutral btn-sm">Give Access</a>
+</div>
+<div class="card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Host</th>
+                <th>Status</th>
+                <th>Last Update</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{entry.ssh_key.owner}}</td>
+                <td>{{entry.host}}</td>
+                <td>{{entry.status}}</td>
+                <td>{{entry.updated_at}}</td>
+                <td>
+                    <a href="/" class="btn btn-neutral btn-sm">Manage</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
