@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from .models import Access
-from .forms import GrantAccessForm
+from access.models import Access
+from access.forms import GrantAccessForm
 
 def index(request):
     """
@@ -24,3 +24,4 @@ def create_access(request):
         "form": form
     }
     return render(request, "access/create.html", context=context)
+

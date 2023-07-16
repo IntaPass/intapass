@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Access
+from access.models import Access
 
 class GrantAccessForm(forms.ModelForm):
     class Meta:

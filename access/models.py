@@ -7,6 +7,9 @@ class SSHKeys(models.Model):
     label = models.CharField(max_length=32, default="default")
     pub_key = models.TextField()
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
     def __str__(self) -> str:
         return f"{self.label} ({self.owner})"
 

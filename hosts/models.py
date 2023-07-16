@@ -6,5 +6,8 @@ class Host(models.Model):
     ssh_port = models.IntegerField(default=22)
     ssh_user = models.CharField(max_length=32, default="root", help_text="Default user")
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
     def __str__(self) -> str:
         return f"{self.label} - {self.ip_address}"
