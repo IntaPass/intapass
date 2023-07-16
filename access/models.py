@@ -36,7 +36,7 @@ class Access(models.Model):
         Add SSH Key to host
         """
         worker = manage.Worker()
-        worker.give_access([self.ssh_key, ], [self.host, ])
+        worker.give_access(self.ssh_key.pub_key, [self.host, ])
 
     def remove_key_from_host(self):
         """
