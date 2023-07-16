@@ -1,0 +1,1 @@
+[{"name": "Test script", "hosts": ["webservers"], "gather_facts": "no", "tasks": [{"name": "List dir", "command": "ls -la /home/"}]}]
