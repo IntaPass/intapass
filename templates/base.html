@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IntaPass</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.2.1/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="columns">
+        <div class="sidebar pl-5 py-6 is-full-height column is-one-fifth bg-100">
+          
+        </div>
+        <div class="column main-content">
+          <div class="columns">
+            <div class="column is-four-fifths is-offset-1 my-6">
+              {% block content %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

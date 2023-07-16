@@ -27,6 +27,7 @@ class Access(models.Model):
     host = models.ForeignKey("hosts.Host", related_name="accesses", on_delete=models.PROTECT)
     ssh_key = models.ForeignKey(SSHKeys, related_name="accesses", on_delete=models.PROTECT)
     status = models.CharField(max_length=15, choices=STATUSES, default=PENDING)
+    root_access = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"{self.status} {self.ssh_key} - {self.host}"
@@ -36,7 +37,9 @@ class Access(models.Model):
         Add SSH Key to host
         """
         worker = manage.Worker()
-        worker.give_access(self.ssh_key.pub_key, [self.host, ])
+        user = self.ssh_key.owner.username
+        key = self.ssh_key.pub_key
+        worker.give_access(key=key, user=user, hosts=[self.host, ], root_access=self.root_access)
 
     def remove_key_from_host(self):
         """

@@ -27,36 +27,36 @@ class Worker():
             p.write(json.dumps(temp))
         return file_name
         
-    def give_access(self, key, hosts: list) -> None:
-        ssh_file = "felix.pub"
+    def give_access(self, key, user, hosts: list, group_name="team", root_access=False) -> None:
+        ssh_file = f"{user}.pub"
         with open(ssh_file, "w+") as p:
             p.write(key)
 
         tasks = [
             {
-                "name": "Make sure we have a 'team' group",
+                "name": f"Make sure we have a '{group_name}' group",
                 "group": {
-                    "name": "team",
+                    "name": group_name,
                     "state": "present"
                 }
             },
             {
-                "name": "Allow 'team' group to have passwordless sudo",
+                "name": f"Allow '{group_name}' group to have passwordless sudo",
                 "lineinfile": {
                     "dest": "/etc/sudoers",
                     "state": "present",
-                    "regexp": "^%team",
-                    "line": "%team ALL=(ALL) NOPASSWD: ALL",
+                    "regexp": f"^%{group_name}",
+                    "line": f"%{group_name} ALL=(ALL) NOPASSWD: ALL",
                     "validate": "visudo -cf %s"
                 }
             },
             {
-                "name": "Add sudoers users to team group",
-                "user": "name=felix groups=team append=yes state=present createhome=yes"
+                "name": f"Add sudoers users to {group_name} group",
+                "user": f"name={user} groups={group_name} append=yes state=present createhome=yes"
             },
             {
-                "name": "Set up authorized keys for the felix user",
-                "authorized_key": "user=felix key=\"{{item}}\"",
+                "name": "Set up authorized keys for the {user} user",
+                "authorized_key": "user={user} key=\"{{item}}\"",
                 "with_file": [ssh_file, ]
             }
         ]
@@ -77,4 +77,5 @@ class Worker():
         subprocess.call(["ansible-playbook", file_name, "-i", host_file])
         os.remove(file_name)
         os.remove(host_file)
+        os.remove(ssh_file)
 
