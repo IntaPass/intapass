@@ -11,3 +11,6 @@ class Host(models.Model):
 
     def __str__(self) -> str:
         return f"{self.label} - {self.ip_address}"
+    
+    class Meta:
+        ordering = ("-created_at", )

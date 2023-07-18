@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4 text-right">
+    <a href="{% url 'hosts:create' %}" class="btn btn-neutral btn-sm">Add Host/Server</a>
+</div>
+<div class="card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>IP</th>
+                <th>User</th>
+                <th>Port</th>
+                <th>Last Update</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for host in hosts %}
+            <tr>
+                <td>{{host.label}}</td>
+                <td>{{host.ip_address}}</td>
+                <td>{{host.ssh_user}}</td>
+                <td>{{host.ssh_port}}</td>
+                <td>{{host.updated_at}}</td>
+                <td>
+                    <a href="{% url 'hosts:manage' host.pk %}" class="btn btn-neutral btn-sm">Manage</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
