@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block page_header %}Team{% endblock %}
+
 {% block content %}
 <div class="mb-4 text-right">
     <a href="{% url 'access:create_user' %}" class="btn btn-neutral btn-sm">New User</a>

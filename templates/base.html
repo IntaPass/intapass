@@ -7,6 +7,7 @@
     <title>IntaPass</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.2.1/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
   </head>
   <body>
     <div class="w-full flex">
@@ -26,7 +27,7 @@
           <div>
             <div class="navbar bg-base-100">
               <div class="flex-1">
-                <a class="btn btn-ghost normal-case text-xl">Access</a>
+                <a class="btn btn-ghost normal-case text-xl">{% block page_header %}Access{% endblock %}</a>
               </div>
               <div class="flex-none">
                 <ul class="menu menu-horizontal px-1">

@@ -16,14 +16,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for entry in entries %}
+            {% for access in entries %}
             <tr>
-                <td>{{entry.ssh_key.owner}}</td>
-                <td>{{entry.host}}</td>
-                <td>{{entry.status}}</td>
-                <td>{{entry.updated_at}}</td>
+                <td>{{access.ssh_key.owner}}</td>
+                <td>{{access.host}}</td>
+                <td>{{access.status}}</td>
+                <td>{{access.updated_at}}</td>
                 <td>
-                    <a href="/" class="btn btn-neutral btn-sm">Manage</a>
+                    <a href="{% url 'access:manage' access.pk %}" class="btn btn-neutral btn-sm">Manage</a>
                 </td>
             </tr>
             {% endfor %}

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block page_header %}Hosts{% endblock %}
+
 {% block content %}
 <div class="mb-4 text-right">
     <a href="{% url 'hosts:create' %}" class="btn btn-neutral btn-sm">Add Host/Server</a>

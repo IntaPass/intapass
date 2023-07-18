@@ -37,6 +37,9 @@ class Access(models.Model):
 
     def __str__(self) -> str:
         return f"{self.status} {self.ssh_key} - {self.host}"
+    
+    class Meta:
+        ordering = ("-created_at", )
 
     def add_key_to_host(self):
         """

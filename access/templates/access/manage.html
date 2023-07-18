@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{access}}
+
+<div hx-get="{% url 'access:give_access' access.pk %}" hx-trigger="load" hx-swap="outerHTML">xxx</div>
+{% endblock %}
