@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load daisyui_filters %}
 
 {% block page_header %}Team{% endblock %}
 
 {% block content %}
 <form method="post" novalidate>
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-neutral btn-sm">Update User</button>
+    {{form|crispy}}
+    <button class="btn btn-neutral">Update User</button>
 </form>
 
 <div hx-get="{% url 'access:ssh_keys_list' record.id %}" hx-trigger="load" hx-swap="outerHTML"></div>

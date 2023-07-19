@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load daisyui_filters %}
 
 {% block content %}
 <form method="post" novalidate>
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-neutral btn-sm">Grant Access</button>
+    {{form|crispy}}
+    <button class="btn btn-neutral">Add Access</button>
 </form>
 {% endblock %}

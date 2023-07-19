@@ -55,8 +55,8 @@ class Worker():
                 "user": f"name={user} groups={group_name} append=yes state=present createhome=yes"
             },
             {
-                "name": "Set up authorized keys for the {user} user",
-                "authorized_key": "user={user} key=\"{{item}}\"",
+                "name": f"Set up authorized keys for the {user} user",
+                "authorized_key": f"user={user} "+"key=\"{{item}}\"",
                 "with_file": [ssh_file, ]
             }
         ]

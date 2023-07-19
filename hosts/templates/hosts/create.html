@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load daisyui_filters %}
 
 {% block page_header %}Hosts{% endblock %}
 
 {% block content %}
 <form method="post" novalidate>
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-neutral btn-sm">Add Host</button>
+    {{form|crispy}}
+    <button class="btn btn-neutral">Add Host</button>
 </form>
 {% endblock %}

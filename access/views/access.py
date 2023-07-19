@@ -47,3 +47,14 @@ def give_access(request, pk=None):
         "access": access
     }
     return render(request, "access/give_access.html", context=context)
+
+
+@login_required
+def remove_access(request, pk=None):
+    access = Access.objects.get(pk=pk)
+    if request.method == "POST":
+        access.remove_key_from_host()
+    context = {
+        "access": access
+    }
+    return render(request, "access/remove_access.html", context=context)

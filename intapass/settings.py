@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
+    'crispy_daisyui',
+
     'access',
     'hosts',
 ]
@@ -71,6 +74,10 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "daisyui"
+
+CRISPY_TEMPLATE_PACK = "daisyui"
 
 WSGI_APPLICATION = 'intapass.wsgi.application'
 

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from access.views import (index, create_access, manage_access, give_access)
+from access.views import (index, create_access, manage_access, give_access, remove_access)
 from access.views import (users_list, create_user, manage_user)
 from access.views import (ssh_keys_list, ssh_key_create, ssh_key_manage)
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('create/', create_access, name="create"),
     path('manage/<int:pk>/details/', manage_access, name="manage"),
     path('manage/<int:pk>/give-access/', give_access, name="give_access"),
+    path('manage/<int:pk>/remove-access/', remove_access, name="remove_access"),
 
     path("users/", users_list, name="users"),
     path("users/create/", create_user, name="create_user"),
