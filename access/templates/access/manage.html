@@ -5,4 +5,10 @@
 
 <div hx-get="{% url 'access:give_access' access.pk %}" hx-trigger="load" hx-swap="outerHTML"></div>
 <div hx-get="{% url 'access:remove_access' access.pk %}" hx-trigger="load" hx-swap="outerHTML"></div>
+
+
+<div class="my-4 card">
+    <div class="card-title">{{access.status}}</div>
+    <div class="card-body">{{access.last_output|safe}}</div>
+</div>
 {% endblock %}

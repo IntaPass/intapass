@@ -31,6 +31,8 @@ class Access(models.Model):
     ssh_key = models.ForeignKey(SSHKeys, related_name="accesses", on_delete=models.PROTECT)
     status = models.CharField(max_length=15, choices=STATUSES, default=PENDING)
     root_access = models.BooleanField(default=False)
+    
+    last_output = models.TextField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -48,7 +50,11 @@ class Access(models.Model):
         worker = manage.Worker()
         user = self.ssh_key.owner.username
         key = self.ssh_key.pub_key
-        worker.give_access(key=key, user=user, hosts=[self.host, ], root_access=self.root_access)
+        status, _, output = worker.give_access(key=key, user=user, hosts=[self.host, ], root_access=self.root_access)
+        self.status = status
+        self.last_output = output
+        self.save()
+
 
     def remove_key_from_host(self):
         """

@@ -27,8 +27,9 @@ class Worker():
             p.write(json.dumps(temp))
         return file_name
         
-    def give_access(self, key, user, hosts: list, group_name="team", root_access=False) -> None:
+    def give_access(self, key, user, hosts: list, group_name="team", root_access=False) -> tuple:
         ssh_file = f"{user}.pub"
+        status = "PENDING"
         with open(ssh_file, "w+") as p:
             p.write(key)
 
@@ -74,9 +75,17 @@ class Worker():
         with open(file_name, "w+") as p:
             p.write(json.dumps(playbook))
         host_file = self.generate_host_file(hosts)
-        subprocess.call(["ansible-playbook", file_name, "-i", host_file])
+        process = subprocess.Popen(["ansible-playbook", file_name, "-i", host_file], stdout=subprocess.PIPE)
+        output = process.communicate()[0]
+        if process.returncode != 0: 
+            print("Failed %d %s" % (process.returncode, output))
+            status = "FAILED"
+        else:
+            print(f"Success: {process.returncode} >>>>> {output}")
+            status = "GRANTED"
         # TODO: Log subprocess output - https://www.endpointdev.com/blog/2015/01/getting-realtime-output-using-python/
         os.remove(file_name)
         os.remove(host_file)
         os.remove(ssh_file)
+        return status, process.returncode, output
 
