@@ -8,4 +8,6 @@
     {{form.as_p}}
     <button type="submit" class="btn btn-neutral btn-sm">Update User</button>
 </form>
+
+<div hx-get="{% url 'access:ssh_keys_list' record.id %}" hx-trigger="load" hx-swap="outerHTML"></div>
 {% endblock %}

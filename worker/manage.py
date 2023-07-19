@@ -75,6 +75,7 @@ class Worker():
             p.write(json.dumps(playbook))
         host_file = self.generate_host_file(hosts)
         subprocess.call(["ansible-playbook", file_name, "-i", host_file])
+        # TODO: Log subprocess output - https://www.endpointdev.com/blog/2015/01/getting-realtime-output-using-python/
         os.remove(file_name)
         os.remove(host_file)
         os.remove(ssh_file)

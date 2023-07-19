@@ -1,0 +1,5 @@
+<form method="post" novalidate hx-post="{% url 'access:ssh_key_manage' ssh_key.owner_id ssh_key.id %}" hx-swap="outerHTML">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-neutral btn-sm">Update Key</button>
+</form>

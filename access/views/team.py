@@ -43,6 +43,7 @@ def manage_user(request, pk=None):
             form.save()
             return redirect(resolve_url("access:users"))
     context = {
-        "form": form
+        "form": form,
+        "record": user
     }
     return render(request, "team/users/manage.html", context=context)

@@ -1,0 +1,29 @@
+<div id="pageContent">
+    <div class="mb-4 text-right">
+        <a hx-get="{% url 'access:ssh_key_create' owner_id %}" hx-target="#keyList" hx-trigger="click" class="btn btn-neutral btn-sm">Add Key</a>
+    </div>
+    <div class="card" id="keyList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Public Key</th>
+                    <th>Last Update</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ssh_key in ssh_keys %}
+                <tr>
+                    <td>{{ssh_key.label}}</td>
+                    <td>{{ssh_key.pub_key|truncatechars:26}}</td>
+                    <td>{{ssh_key.updated_at}}</td>
+                    <td>
+                        <a hx-get="{% url 'access:ssh_key_manage' owner_id ssh_key.pk %}" hx-target="#pageContent" hx-trigger="click" class="btn btn-neutral btn-sm">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
