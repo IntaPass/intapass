@@ -1,5 +1,5 @@
 <form method="post" hx-post="{% url 'access:remove_access' access.pk %}" hx-swap="outerHTML">
     {% csrf_token %}
     <span class="htmx-indicator">Processing ...</span>
-    <button class="btn btn-error btn-sm">Remove access</button>
+    <button class="btn btn-error btn-sm" {% if access.status == 'PROCESSING' %}disabled{% endif %}>Remove access</button>
 </form>

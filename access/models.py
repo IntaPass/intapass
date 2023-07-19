@@ -18,12 +18,14 @@ class Access(models.Model):
     GRANTED = "GRANTED"
     REMOVED = "REMOVED"
     PENDING = "PENDING"
+    PROCESSING = "PROCESSING"
     FAILED = "FAILED"
 
     STATUSES = (
         (PENDING, PENDING),
         (GRANTED, GRANTED),
         (REMOVED, REMOVED),
+        (PROCESSING, PROCESSING),
         (FAILED, FAILED),
     )
 
@@ -47,6 +49,9 @@ class Access(models.Model):
         """
         Add SSH Key to host
         """
+        self.status = Access.PROCESSING
+        self.save()
+        
         worker = manage.Worker()
         user = self.ssh_key.owner.username
         key = self.ssh_key.pub_key
