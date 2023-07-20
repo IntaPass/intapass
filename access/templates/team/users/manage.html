@@ -4,6 +4,11 @@
 {% block page_header %}Team{% endblock %}
 
 {% block content %}
+<div class="tabs">
+    <a class="tab tab-lifted">Access</a> 
+    <a class="tab tab-lifted tab-active">SSH Keys</a> 
+    <a class="tab tab-lifted">Account</a>
+</div>
 <form method="post" novalidate>
     {% csrf_token %}
     {{form|crispy}}
