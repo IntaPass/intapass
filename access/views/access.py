@@ -58,3 +58,15 @@ def remove_access(request, pk=None):
         "access": access
     }
     return render(request, "access/remove_access.html", context=context)
+
+
+@login_required
+def get_status(request, pk=None):
+    status_code = 200
+    access = Access.objects.get(pk=pk)
+    if access.status != Access.PROCESSING:
+        status_code = 286
+    context = {
+        "access": access
+    }
+    return render(request, "access/get_status.html", context=context, status=status_code)

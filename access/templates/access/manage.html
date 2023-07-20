@@ -1,14 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{access}}
-
-<div hx-get="{% url 'access:give_access' access.pk %}"  hx-trigger="load" hx-swap="outerHTML"></div>
-<div hx-get="{% url 'access:remove_access' access.pk %}" hx-trigger="load" hx-swap="outerHTML"></div>
-
-
-<div class="my-4 card">
-    <div class="card-title">{{access.status}}</div>
-    <div class="card-body">{{access.last_output|safe}}</div>
+<div class="flex flex-col">
+    <div class="flex flex-1 mb-2 flex-row">
+        <div class="flex-1 font-semibold">Host</div>
+        <div class="flex-1">{{access.host}}</div>
+    </div>
+    <div class="flex flex-1 mb-2 flex-row">
+        <div class="flex-1 font-semibold">SSH Key</div>
+        <div class="flex-1">{{access.ssh_key}}</div>
+    </div>
+    <div class="flex flex-1 mb-2 flex-row">
+        <div class="flex-1 font-semibold">Root Access</div>
+        <div class="flex-1">{{access.root_access}}</div>
+    </div>
+    <div class="flex flex-1 mb-2 flex-row">
+        <div class="flex-1 font-semibold">Updated at</div>
+        <div class="flex-1">{{access.updated_at}}</div>
+    </div>
 </div>
+
+<div hx-get="{% url 'access:get_status' access.pk %}" hx-trigger="load" hx-swap="outerHTML"></div>
+
 {% endblock %}

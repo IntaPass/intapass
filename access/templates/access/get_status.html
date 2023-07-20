@@ -1,0 +1,16 @@
+
+<div class="my-4 card">
+    <div class="flex mb-2">
+        <div class="flex-1 text-gray-600 font-semibold">
+            Status: {{access.status}}
+        </div>
+        <div class="flex-1 flex flex-row justify-end space-x-2">
+            <progress class="progress w-56 htmx-indicator"></progress>
+            <div hx-get="{% url 'access:give_access' access.pk %}"  hx-trigger="load" hx-swap="outerHTML"></div>
+            <div hx-get="{% url 'access:remove_access' access.pk %}" hx-trigger="load" hx-swap="outerHTML"></div>            
+        </div>
+    </div>
+    <div class="card-body break-all bg-gray-800 text-gray-100">
+        {{access.last_output|safe|linebreaksbr}}
+    </div>
+</div>

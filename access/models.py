@@ -57,7 +57,7 @@ class Access(models.Model):
         key = self.ssh_key.pub_key
         status, _, output = worker.give_access(key=key, user=user, hosts=[self.host, ], root_access=self.root_access)
         self.status = status
-        self.last_output = output
+        self.last_output = output.decode("utf-8")
         self.save()
 
 
@@ -65,4 +65,14 @@ class Access(models.Model):
         """
         Remove SSH Key from host
         """
-        pass
+        self.status = Access.PROCESSING
+        self.save()
+        
+        worker = manage.Worker()
+        user = self.ssh_key.owner.username
+        key = self.ssh_key.pub_key
+        status, _, output = worker.remove_access(key=key, user=user, hosts=[self.host, ])
+        self.status = status
+        self.last_output = output.decode("utf-8")
+        self.save()
+    

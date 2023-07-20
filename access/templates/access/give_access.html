@@ -1,5 +1,4 @@
 <form method="post" hx-post="{% url 'access:give_access' access.pk %}" hx-swap="outerHTML">
     {% csrf_token %}
-    <span class="htmx-indicator">Processing ...</span>
     <button class="btn btn-primary  btn-sm" {% if access.status == 'PROCESSING' %}disabled{% endif %}>Give access</button>
 </form>

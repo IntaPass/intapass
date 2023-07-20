@@ -29,7 +29,7 @@ class Worker():
         
     def give_access(self, key, user, hosts: list, group_name="team", root_access=False) -> tuple:
         ssh_file = f"{user}.pub"
-        status = "PENDING"
+        status = "PROCESSING"
         with open(ssh_file, "w+") as p:
             p.write(key)
 
@@ -83,6 +83,46 @@ class Worker():
         else:
             print(f"Success: {process.returncode} >>>>> {output}")
             status = "GRANTED"
+        # TODO: Log subprocess output - https://www.endpointdev.com/blog/2015/01/getting-realtime-output-using-python/
+        os.remove(file_name)
+        os.remove(host_file)
+        os.remove(ssh_file)
+        return status, process.returncode, output
+    
+    def remove_access(self, key, user, hosts: list, group_name="team") -> tuple:
+        ssh_file = f"{user}.pub"
+        status = "PROCESSING"
+        with open(ssh_file, "w+") as p:
+            p.write(key)
+        tasks = [
+            {
+                "name": f"Remove authorized keys for the {user} user",
+                "authorized_key": f"user={user} state=absent "+"key=\"{{item}}\"",
+                "with_file": [ssh_file, ]
+            }
+        ]
+
+        playbook = [{
+            "name": "Remove SSH Key",
+            "hosts": [
+                "webservers"
+            ],
+            "gather_facts": "no",
+            "tasks": tasks
+        }]
+
+        file_name = "playbook.json"
+        with open(file_name, "w+") as p:
+            p.write(json.dumps(playbook))
+        host_file = self.generate_host_file(hosts)
+        process = subprocess.Popen(["ansible-playbook", file_name, "-i", host_file], stdout=subprocess.PIPE)
+        output = process.communicate()[0]
+        if process.returncode != 0: 
+            print("Failed %d %s" % (process.returncode, output))
+            status = "FAILED"
+        else:
+            print(f"Success: {process.returncode} >>>>> {output}")
+            status = "REMOVED"
         # TODO: Log subprocess output - https://www.endpointdev.com/blog/2015/01/getting-realtime-output-using-python/
         os.remove(file_name)
         os.remove(host_file)

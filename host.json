@@ -1,0 +1,1 @@
+{"all": {"children": {"webservers": {"hosts": {"sandbox": {"ansible_host": "146.190.49.200", "ansible_port": 22, "ansible_user": "root"}}}}}}
